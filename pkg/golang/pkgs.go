@@ -39,11 +39,10 @@ type LoadInfo struct {
 	LoadTime     time.Time // LoadTime is the time this loading is executed
 	LoadedFiles  []string  // LoadedFiles are paths of source files loaded
 	IgnoredFiles []string  // IgnoredFiles are paths of those not be loaded
-
-	IllTyped   bool    // IllTyped is true if any type error occurs in parsing
-	FileErrors []error // FileErrors are a set of errors when parsing the file
-	TypeErrors []error // TypeErrors are a set of errors in checking the types
-	DepsErrors []error // DepsErrors are a set of errors in dependency imports
+	IllTyped     bool      // IllTyped is true if any type error occurs in parsing
+	FileErrors   []error   // FileErrors are a set of errors when parsing the file
+	TypeErrors   []error   // TypeErrors are a set of errors in checking the types
+	DepsErrors   []error   // DepsErrors are a set of errors in dependency imports
 }
 
 // newPackage creates a new package in the program given its name, logical path and directory path.
@@ -76,7 +75,7 @@ func (pkg *Package) PkgName() string {
 	if pkg != nil {
 		return pkg.pkgName
 	}
-	return NoneString
+	return ""
 }
 
 // PkgPath is logical path to import this package in file of other package
@@ -84,7 +83,7 @@ func (pkg *Package) PkgPath() string {
 	if pkg != nil {
 		return pkg.pkgPath
 	}
-	return NoneString
+	return ""
 }
 
 // DirPath is the absolute path of directory of this package's source file
@@ -92,7 +91,7 @@ func (pkg *Package) DirPath() string {
 	if pkg != nil {
 		return pkg.dirPath
 	}
-	return NoneString
+	return ""
 }
 
 // IsLoaded check whether this package is loaded with any syntax, type and semantic information of

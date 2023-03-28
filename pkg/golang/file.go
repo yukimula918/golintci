@@ -33,7 +33,7 @@ func newSrcFile(pkg *Package, path string) *SrcFile {
 	return &SrcFile{
 		pkg:    pkg,
 		path:   path,
-		code:   NoneString,
+		code:   "",
 		syntax: nil,
 		memSet: nil,
 	}
@@ -52,7 +52,7 @@ func (file *SrcFile) Path() string {
 	if file != nil {
 		return file.path
 	}
-	return NoneString
+	return ""
 }
 
 // Code is the text in the source file being analyzed
@@ -60,7 +60,7 @@ func (file *SrcFile) Code() string {
 	if file != nil {
 		return file.code
 	}
-	return NoneString
+	return ""
 }
 
 // Syntax is the abstract syntax tree of source file (AST) or nil if it has not been loaded

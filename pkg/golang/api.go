@@ -14,6 +14,19 @@ import (
 	"strings"
 )
 
+const (
+	GoFileSuffix  = ".go"      // GoFileSuffix defines the suffix of go source files
+	PackagePrefix = "package"  // PackagePrefix is the prefix of code line in package declaration
+	GoModFileName = "go.mod"   // GoModFileName is the name of `go.mod` file to find module name
+	GoModIndirect = "indirect" // GoModIndirect is the 'indirect' flag to specify dependency one
+	ModulePrefix  = "module "  // ModulePrefix is the prefix of code line in `go.mod` with module
+	VersionPrefix = "go "      // VersionPrefix is the prefix of code line in go.mod with version
+
+	NewLine   = "\n" // NewLine is the string used to split code into lines
+	TabString = "\t" // TabString is the prefix of \t
+	SpaceChar = " "  // SpaceChar is a space ' '
+)
+
 func LoadBaseFile(srcFile string) (*SrcFile, error) {
 	// 1. validate the input and get its source file directory
 	if _, fileErr := os.Stat(srcFile); os.IsNotExist(fileErr) {
@@ -77,16 +90,13 @@ func LoadBaseFile(srcFile string) (*SrcFile, error) {
 	return file, nil
 }
 
-func FindPackagePath(dirPath string) string {
-	return findPackagePath(dirPath)
-}
-
 // LoadOneFile parses the AST of source file and its corresponding package info.
 func LoadOneFile(srcFile string) (*ast.File, *packages.Package, error) {
 	// 1. validate the input file path
 	if _, fileErr := os.Stat(srcFile); os.IsNotExist(fileErr) {
 		return nil, nil, fmt.Errorf("undef file: %s", srcFile)
-	} else if !strings.HasSuffix(srcFile, ".go") {
+	}
+	if !strings.HasSuffix(srcFile, ".go") {
 		return nil, nil, fmt.Errorf("undef file: %s", srcFile)
 	}
 	var srcPath, _ = filepath.Abs(srcFile)

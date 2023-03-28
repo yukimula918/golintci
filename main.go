@@ -2,21 +2,22 @@ package main
 
 import (
 	"fmt"
-	"github.com/yukimula918/golintci/pkg/golang"
 	"go/ast"
 	"go/build"
 	"go/importer"
 	"go/parser"
 	"go/token"
 	"go/types"
-	"golang.org/x/tools/go/packages"
-	"golang.org/x/tools/go/ssa"
-	"golang.org/x/tools/go/ssa/ssautil"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/yukimula918/golintci/pkg/golang"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 const (
@@ -34,7 +35,7 @@ func percent(succeed, errors int) float64 {
 }
 
 func main() {
-	rootDir := "/Users/linhuan/Development/GoRepos"
+	// rootDir := "/Users/linhuan/Development/GoRepos"
 	// rootDir := "/Users/linhuan/Development/GoRepos/golangci-lint"
 	// rootDir := "/Users/linhuan/Development/GoRepos/istio"
 	// rootDir := "/Users/linhuan/Development/MyRepos/golintci"
@@ -49,14 +50,6 @@ func main() {
 	// viewLoadConfigAstType(rootDir)
 	// testCompileForOneFile(rootDir)
 	// testLoadBaseFile(rootDir)
-	testPackagePaths(rootDir)
-}
-
-func testPackagePaths(rootDir string) {
-	for goDir, _ := range findPackagesAndGoFiles(rootDir) {
-		pkgPath := golang.FindPackagePath(goDir)
-		fmt.Printf("Dir: %s\n\t--- %s\n", goDir, pkgPath)
-	}
 }
 
 func testLoadBaseFile(rootDir string) {
